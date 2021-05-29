@@ -6,29 +6,32 @@ try:
 except:
     alunos = 5
 
-
-def verifica_nota(lst):
-
-    # fazer com que o usuário digite um número entre 0 e 1.0
-    # min e max talvez?
-    if lst > 1.0 or lst < 0:
-        lst = float(input("Digite valores entre 0 e 1.0: "))
-
 lst_notas = [] 
-
 
 i=0
 while(i<alunos):
 
-    nota_aop1 = float(input("Nota AOP1: "))
-    nota_aop2 = float(input("Nota AOP2: "))
-    nota_aop3 = float(input("Nota AOP3: "))
-    avaliacao = float(input("Nota AVALIAÇÃO: "))
+    print("Digite as notas do aluno #{}".format(i+1))
 
-    verifica_nota(nota_aop1)
+    while True:
+        try:
 
-    # XXX implementar uma função que verifique a nota
-    # se a nota for inválida, força o usuário a digitar novamente
+            nota_aop1 = float(input("Nota AOP1: "))
+            nota_aop2 = float(input("Nota AOP2: "))
+            nota_aop3 = float(input("Nota AOP3: "))
+            avaliacao = float(input("Nota AVALIAÇÃO: "))
+
+            nota_total = nota_aop1 + nota_aop2 + nota_aop3 + avaliacao
+
+            if not 0 <= nota_total <= 10:
+                raise ValueError("Você digitou alguma nota errada. Lembre-se dos limites de nota das atividades.")
+            
+
+        except ValueError as e:
+            print("Nota final inválida:", e)
+
+        else:
+            break
 
     media_modulo = nota_aop1 + nota_aop2 + nota_aop3 + avaliacao 
 
@@ -38,7 +41,7 @@ while(i<alunos):
         prova_final = float(input("Digite a nota da prova final do aluno: "))
         media_modulo = prova_final
     else:
-        print("Aluno aprovado!")
+        print("Aluno aprovado! Nota = ", media_modulo)
 
     lst_notas.append(media_modulo)
 
