@@ -1,4 +1,5 @@
 import os
+import time
 
 try:
     """ pede ao usuário para digitar a quantidade de alunos do curso
@@ -8,7 +9,8 @@ try:
 except:
     alunos = 5
 
-
+# XXX fazer uma função para se o usuário quiser passar uma lista de notas para função como 
+# argumento seja possível
 
 lst_notas = [] 
 
@@ -50,6 +52,10 @@ while(i<alunos):
         print("O aluno está de recuperação! A média {:.2f} é insuficiente.".format(media_modulo))
 
         prova_final = float(input("Digite a nota da prova final do aluno #{}: ".format(i+1)))
+
+        if prova_final < 5.0:
+            print("Aluno reprovado!")
+
         media_modulo = prova_final
     else:
         print("Aluno aprovado! Nota = ", media_modulo)
@@ -57,6 +63,8 @@ while(i<alunos):
     lst_notas.append(media_modulo)
 
     i+=1
+    # espera 2.5 para o usuário ver o status do aluno
+    time.sleep(2.5)
     # verifica qual o sistema operacional do usuário e limpa a tela
     if os.name == "nt":
         os.system("cls")
@@ -68,6 +76,9 @@ while(i<alunos):
 lst_ap = []
 lst_rep = []
 
+""" percorre cada elemento da lista de notas, se esse for menor que 5 será adicionado a lista 
+    de reprovados, se não, a nota é maior que 5, portanto é adicionado a lista de aprovados.
+"""
 for i in lst_notas:
 
     if i < 5.0:
