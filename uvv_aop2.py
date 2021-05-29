@@ -27,14 +27,14 @@ while(i<alunos):
 
             nota_total = nota_aop1 + nota_aop2 + nota_aop3 + avaliacao
 
-            # variável que verifica se os valores estão dentro do range
+            # variável que verifica se os valores estão dentro do range das notas
             dues_exmaquina = 0 <= nota_aop1 <= 1.0 and 0 <= nota_aop2 <= 2.0 and 0 <= nota_aop3 <= 1.0 and 0 <= avaliacao <= 6.0
-            
+
             """ se algum dos valores estiverem errados, é lançada uma exceção, 
                 e o  usuário terá de repetir o processo 
             """
             if not dues_exmaquina:
-                raise ValueError("A nota da AOP1(0, 1) AOP2(0, 2).")
+                raise ValueError("A nota da AOP1 e AOP3 devem estar entre 0 e 1.0, AOP2 0 e 2.0 e AVALIAÇÃO 0 e 6.0.")
             
 
         except ValueError as e:
@@ -58,12 +58,6 @@ while(i<alunos):
     i+=1
 
 
-# calcular a porcentagem de aprovados e reprovados
-# talvez usar numpy, não sei ainda
-# uma alternativa é iterar todos os itens com o laço for
-# e fazer um append em outra lista com aprovados e reprovados
-# depois subtrair a quantidade de aprovado por reprovados
-
 # listas de aprovados e reprovados
 lst_ap = []
 lst_rep = []
@@ -75,9 +69,14 @@ for i in lst_notas:
     else:
         lst_ap.append(i)
 
-""" o tamanho da lista com as notas dos aprovados e reprovados, dirá quantos alunos obtiveram 
+""" o tamanho da lista com as notas dos aprovados e reprovados dirá quantos alunos obtiveram 
     resultado acima ou abaixo da média. Após isso, a porcentagem pode ser calculada.
 """
 porcentagem_ap = (len(lst_ap) * 100) / alunos
 procentagem_rep = 100 - porcentagem_ap
-print("De um total de {} alunos, {:.2f}% foram aprovados!".format(alunos, porcentagem_ap))
+
+# soma as notas dos aprovados e reprovados, para calcular a média geral da turma
+media_turma = sum(lst_ap + lst_rep) / alunos
+
+print("De um total de {} alunos, {:.1f}% foram aprovados! E {:.1f}% foram reprovados".format(alunos, porcentagem_ap, procentagem_rep))
+print("A média geral da turma é ", media_turma)
