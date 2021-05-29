@@ -1,9 +1,10 @@
+import os
 
 try:
     """ pede ao usuário para digitar a quantidade de alunos do curso
         se nada for digitado ou ocorrer um erro, 5 será o número padrão
     """
-    alunos = int(input("Digite a quantidade de alunos (o padrão é 5):"))
+    alunos = int(input("Digite a quantidade de alunos (o padrão é 5): "))
 except:
     alunos = 5
 
@@ -48,7 +49,7 @@ while(i<alunos):
     if media_modulo < 7.0:
         print("O aluno está de recuperação! A média {:.2f} é insuficiente.".format(media_modulo))
 
-        prova_final = float(input("Digite a nota da prova final do aluno: "))
+        prova_final = float(input("Digite a nota da prova final do aluno #{}: ".format(i+1)))
         media_modulo = prova_final
     else:
         print("Aluno aprovado! Nota = ", media_modulo)
@@ -56,6 +57,11 @@ while(i<alunos):
     lst_notas.append(media_modulo)
 
     i+=1
+    # verifica qual o sistema operacional do usuário e limpa a tela
+    if os.name == "nt":
+        os.system("cls")
+    else:
+        os.system("clear")
 
 
 # listas de aprovados e reprovados
