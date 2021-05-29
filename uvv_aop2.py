@@ -1,10 +1,13 @@
 
 try:
-    # pede ao usuário para digitar a quantidade de alunos do curso
-    # se nada for digitado ou ocorrer um erro, 5 será o número padrão
+    """ pede ao usuário para digitar a quantidade de alunos do curso
+        se nada for digitado ou ocorrer um erro, 5 será o número padrão
+    """
     alunos = int(input("Digite a quantidade de alunos (o padrão é 5):"))
 except:
     alunos = 5
+
+
 
 lst_notas = [] 
 
@@ -13,6 +16,7 @@ while(i<alunos):
 
     print("Digite as notas do aluno #{}".format(i+1))
 
+    # Este laço garante que os valores digitados pelo usuário para as notas sejam coerentes
     while True:
         try:
 
@@ -23,12 +27,18 @@ while(i<alunos):
 
             nota_total = nota_aop1 + nota_aop2 + nota_aop3 + avaliacao
 
-            if not 0 <= nota_total <= 10:
-                raise ValueError("Você digitou alguma nota errada. Lembre-se dos limites de nota das atividades.")
+            # variável que verifica se os valores estão dentro do range
+            dues_exmaquina = 0 <= nota_aop1 <= 1.0 and 0 <= nota_aop2 <= 2.0 and 0 <= nota_aop3 <= 1.0 and 0 <= avaliacao <= 6.0
+            
+            """ se algum dos valores estiverem errados, é lançada uma exceção, 
+                e o  usuário terá de repetir o processo 
+            """
+            if not dues_exmaquina:
+                raise ValueError("A nota da AOP1(0, 1) AOP2(0, 2).")
             
 
         except ValueError as e:
-            print("Nota final inválida:", e)
+            print("Nota inválida:", e)
 
         else:
             break
@@ -71,9 +81,3 @@ for i in lst_notas:
 porcentagem_ap = (len(lst_ap) * 100) / alunos
 procentagem_rep = 100 - porcentagem_ap
 print("De um total de {} alunos, {:.2f}% foram aprovados!".format(alunos, porcentagem_ap))
-
-
-
-        
-
-
