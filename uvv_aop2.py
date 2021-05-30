@@ -3,27 +3,31 @@ import time
 
 try:
     """ pede ao usuário para digitar a quantidade de alunos do curso
-        se nada for digitado ou for digitado um valor inválido, 5 será o número padrão
+        se nada for digitado ou for digitado um valor inválido, 100 será o número padrão
     """
-    alunos = int(input("Digite a quantidade de alunos (o padrão é 5): "))
+    alunos = int(input("Digite a quantidade de alunos (o padrão é 100): "))
 except:
-    alunos = 5
+    alunos = 100
+
+print("Digite para AOP1 e AOP3 valores entre 0 e 1.0.")
+print("Para AOP2 os valores válidos estão ente 0 e 2.0.")
+print("A avaliação possui notas válidas entre 0 e 6.0. \n")
 
 lst_notas = [] 
-
 i=0
 while(i<alunos):
 
-    print("Digite as notas do aluno #{}".format(i+1))
-
+    print("Digite as notas do aluno #{} \n".format(i+1))
+   
+ 
     # Este laço garante que os valores digitados pelo usuário para as notas sejam coerentes
     while True:
         try:
 
-            nota_aop1 = float(input("Nota AOP1: "))
-            nota_aop2 = float(input("Nota AOP2: "))
-            nota_aop3 = float(input("Nota AOP3: "))
-            avaliacao = float(input("Nota AVALIAÇÃO: "))
+            nota_aop1 = float(input("Nota AOP1 (entre 0 e 1.0): "))
+            nota_aop2 = float(input("Nota AOP2 (entre 0 e 2.0): "))
+            nota_aop3 = float(input("Nota AOP3 entre 0 e 1.0: "))
+            avaliacao = float(input("Nota AVALIAÇÃO entre 0 e 6.0: "))
 
                 # variável que verifica se os valores estão dentro do range das notas
             verifica_notas = 0 <= nota_aop1 <= 1.0 and 0 <= nota_aop2 <= 2.0 and 0 <= nota_aop3 <= 1.0 and 0 <= avaliacao <= 6.0
@@ -41,25 +45,45 @@ while(i<alunos):
         else:
             break
 
-        media_modulo = nota_aop1 + nota_aop2 + nota_aop3 + avaliacao 
+    media_modulo = nota_aop1 + nota_aop2 + nota_aop3 + avaliacao 
+
 
     if media_modulo < 7.0:
         print("O aluno está de recuperação! A média {:.2f} é insuficiente.".format(media_modulo))
 
-        prova_final = float(input("Digite a nota da prova final do aluno #{}: ".format(i+1)))
+        # laço para verficar se a nota da avaliação é válida
+        while True:
 
-        if prova_final < 5.0:
-            print("Aluno reprovado!")
+                try:
+                    prova_final = float(input("Digite a nota da prova final do aluno #{}: ".format(i+1)))
 
-        media_modulo = prova_final
+
+                    if not 0 <= prova_final <= 10.0:
+                        raise ValueError("A nota para avaliação deve estar entre 0 e 10.")
+                        
+                    elif prova_final < 5.0:
+                        print("Aluno reprovado! A nota {:.1f} obtida na prova final é insuficiente.".format(prova_final))
+
+                    else:
+                        print("Aluno aprovado! Nota obtida na prova final foi de {:.1f}.".format(prova_final))
+
+                    media_modulo = prova_final
+
+
+                except ValueError as e:
+                    print("Nota inválida:", e)
+
+                else:
+                    break
+
     else:
         print("Aluno aprovado! Nota = ", media_modulo)
 
     lst_notas.append(media_modulo)
 
     i+=1
-    # espera 2.5 para o usuário ver o status do aluno
-    time.sleep(2.5)
+    # espera 2s para o usuário ver o status do aluno
+    time.sleep(2)
     # verifica qual o sistema operacional do usuário e limpa a tela
     if os.name == "nt":
         os.system("cls")
